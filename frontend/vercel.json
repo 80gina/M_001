@@ -3,5 +3,11 @@
   "buildCommand": "node build.js",
   "outputDirectory": ".",
   "framework": null,
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/simple.html"
+    }
+  ]
 }
