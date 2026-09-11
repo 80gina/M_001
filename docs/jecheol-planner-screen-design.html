@@ -1,0 +1,79 @@
+<div id="jp-screen-design" class="jp-preview">
+  <style>
+    #jp-screen-design{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#3c3027;background:transparent;padding:12px}
+    #jp-screen-design *{box-sizing:border-box}
+    #jp-screen-design .jp-title{font-size:20px;font-weight:700;margin:0 0 4px}
+    #jp-screen-design .jp-sub{font-size:12px;color:#6e7b72;margin:0 0 18px}
+    #jp-screen-design .jp-stage{display:grid;grid-template-columns:320px minmax(0,1fr);gap:18px;align-items:start}
+    #jp-screen-design .jp-phone{background:#fffaf2;border:1px solid #eadac6;border-radius:26px;padding:14px;box-shadow:0 12px 30px rgba(104,70,40,.12)}
+    #jp-screen-design .jp-notch{width:84px;height:5px;background:#263229;border-radius:8px;margin:0 auto 14px}
+    #jp-screen-design .jp-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;margin-bottom:16px}
+    #jp-screen-design .jp-brand{font-weight:700;color:#a55335}
+    #jp-screen-design .jp-hero{background:#f8e7d4;padding:18px;border-radius:18px;margin-bottom:12px}
+    #jp-screen-design .jp-hero h2{font-size:20px;line-height:1.25;margin:0 0 8px}
+    #jp-screen-design .jp-hero p{font-size:12px;line-height:1.5;margin:0 0 12px;color:#536158}
+    #jp-screen-design .jp-main{background:#a55335;color:white;border:0;border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;width:100%}
+    #jp-screen-design .jp-section{margin:16px 0}
+    #jp-screen-design .jp-section h3{font-size:14px;margin:0 0 9px}
+    #jp-screen-design .jp-season{display:flex;gap:7px;overflow:hidden}
+    #jp-screen-design .jp-season span{background:#fff;border:1px solid #eadac6;border-radius:12px;padding:9px 10px;font-size:12px;white-space:nowrap}
+    #jp-screen-design .jp-row{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f0e5d8;padding:10px 0;font-size:12px}
+    #jp-screen-design .jp-row b{font-size:13px}
+    #jp-screen-design .jp-good{color:#9a5a2d;font-weight:700}
+    #jp-screen-design .jp-bottom{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;border-top:1px solid #eadac6;padding-top:10px;margin-top:15px;text-align:center;font-size:10px;color:#8b7b6d}
+    #jp-screen-design .jp-bottom span:first-child{color:#a55335;font-weight:700}
+    #jp-screen-design .jp-desktop{background:#fbf3e8;border:1px solid #eadac6;border-radius:18px;padding:20px}
+    #jp-screen-design .jp-nav{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eadac6;padding-bottom:16px;margin-bottom:18px}
+    #jp-screen-design .jp-nav strong{font-size:17px;color:#a55335}
+    #jp-screen-design .jp-nav span{font-size:11px;color:#718078}
+    #jp-screen-design .jp-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+    #jp-screen-design .jp-panel{background:#fffdf9;border:1px solid #eadac6;border-radius:14px;padding:16px}
+    #jp-screen-design .jp-panel h3{font-size:14px;margin:0 0 12px}
+    #jp-screen-design .jp-metric{display:flex;justify-content:space-between;align-items:end;margin-bottom:12px}
+    #jp-screen-design .jp-metric strong{font-size:26px}
+    #jp-screen-design .jp-mini{font-size:11px;color:#718078}
+    #jp-screen-design .jp-chart{height:110px;display:flex;align-items:end;gap:7px;border-bottom:1px solid #eadac6;padding:0 5px 0}
+    #jp-screen-design .jp-bar{flex:1;background:#e5a46e;border-radius:5px 5px 0 0;min-height:18px}
+    #jp-screen-design .jp-bar:nth-child(2),#jp-screen-design .jp-bar:nth-child(6){background:#f1ceb0}
+    #jp-screen-design .jp-bar:nth-child(4){background:#a55335}
+    #jp-screen-design .jp-labels{display:flex;justify-content:space-between;font-size:10px;color:#8a968d;margin-top:5px}
+    #jp-screen-design .jp-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f0e5d8;font-size:12px}
+    #jp-screen-design .jp-item:last-child{border:0}
+    #jp-screen-design .jp-pill{font-size:10px;border-radius:20px;padding:4px 7px;background:#f8e7d4;color:#9a5a2d}
+    #jp-screen-design .jp-actions{display:flex;gap:8px;margin-top:15px;flex-wrap:wrap}
+    #jp-screen-design .jp-action{background:#a55335;color:white;border:0;border-radius:8px;padding:9px 12px;font-size:12px}
+    #jp-screen-design .jp-action.alt{background:#f6eadc;color:#8b4b32}
+    #jp-screen-design .jp-market{margin-top:16px;background:#fffdf9;border:1px solid #eadac6;border-radius:14px;padding:16px}
+    #jp-screen-design .jp-market h3{font-size:14px;margin:0 0 10px}
+    #jp-screen-design .jp-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}
+    #jp-screen-design .jp-tab{border:1px solid #d9b99b;background:#fff8ef;color:#8b4b32;border-radius:8px;padding:8px 10px;font-size:11px;cursor:pointer}
+    #jp-screen-design .jp-tab.active{background:#a55335;color:#fff;border-color:#a55335}
+    #jp-screen-design .jp-result{font-size:12px;line-height:1.55;color:#5b4a3e;background:#fbf0e3;padding:11px;border-radius:10px}
+    @media(max-width:760px){#jp-screen-design .jp-stage{grid-template-columns:1fr}.jp-desktop{order:2}}
+  </style>
+  <h1 class="jp-title">제철밥상 플래너 2.0 화면 설계</h1>
+  <p class="jp-sub">일반 가정 사용자의 “오늘 무엇을 사고, 무엇을 만들까?”를 가장 짧은 흐름으로 해결하는 모바일 우선 구조</p>
+  <div class="jp-stage">
+    <section class="jp-phone" aria-label="모바일 홈 화면 예시">
+      <div class="jp-notch"></div>
+      <div class="jp-top"><span class="jp-brand">🥬 제철밥상</span><span>창원 · 9월 10일</span></div>
+      <div class="jp-hero"><h2>오늘 장보기,<br>알뜰하게 시작해요</h2><p>제철 재료와 최근 가격을 보고<br>우리 집 식단을 바로 만들어 보세요.</p><button class="jp-main" type="button">오늘의 식단 만들기</button></div>
+      <div class="jp-section"><h3>이번 달 제철 재료</h3><div class="jp-season"><span>🥬 배추</span><span>🥕 무</span><span>🍠 고구마</span></div></div>
+      <div class="jp-section"><h3>지금 사기 좋은 재료</h3><div class="jp-row"><span><b>양파</b><br><small>평년보다 낮음</small></span><span class="jp-good">−8%</span></div><div class="jp-row"><span><b>무</b><br><small>가격 안정</small></span><span class="jp-good">−5%</span></div></div>
+      <div class="jp-bottom"><span>⌂ 홈</span><span>♨ 식단</span><span>🛒 장바구니</span><span>⋯ 더보기</span></div>
+    </section>
+    <section class="jp-desktop" aria-label="PC 대시보드 화면 예시">
+      <div class="jp-nav"><strong>제철밥상 플래너</strong><span>홈　식단 만들기　장바구니　가격 탐색　내 기록</span></div>
+      <div class="jp-grid">
+        <div class="jp-panel"><h3>이번 주 장보기 예상</h3><div class="jp-metric"><div><strong>32,450원</strong><div class="jp-mini">4인 기준 · 9월 10일 업데이트</div></div><span class="jp-pill">예산 안</span></div><div class="jp-chart" role="img" aria-label="최근 7일 장바구니 가격 추이"><i class="jp-bar" style="height:58%"></i><i class="jp-bar" style="height:66%"></i><i class="jp-bar" style="height:52%"></i><i class="jp-bar" style="height:76%"></i><i class="jp-bar" style="height:62%"></i><i class="jp-bar" style="height:48%"></i><i class="jp-bar" style="height:42%"></i></div><div class="jp-labels"><span>9/4</span><span>9/10</span></div><div class="jp-actions"><button class="jp-action" type="button">식단 추천받기</button><button class="jp-action alt" type="button">장보기 목록 공유</button></div></div>
+        <div class="jp-panel"><h3>장바구니 요약</h3><div class="jp-item"><span>배추 1포기</span><b>6,141원</b></div><div class="jp-item"><span>무 1개</span><b>2,406원</b></div><div class="jp-item"><span>대파 1kg</span><b>2,658원</b></div><div class="jp-item"><span>양파 1kg</span><b>1,875원</b></div><div class="jp-item"><span>예상 1인 비용</span><span class="jp-good">8,112원</span></div></div>
+        <div class="jp-panel"><h3>가격 탐색</h3><div class="jp-mini">품목을 선택하면 일별 가격·7일 평균·30일 평균·월별 계절성을 보여줍니다.</div><div class="jp-actions"><button class="jp-action alt" type="button">품목 선택</button><button class="jp-action alt" type="button">기간 변경</button><button class="jp-action alt" type="button">대체 재료</button></div></div>
+        <div class="jp-panel"><h3>시장 방문 도구</h3><div class="jp-item"><span>📷 재료 사진으로 확인</span><span>›</span></div><div class="jp-item"><span>▣ 바코드로 제품 읽기</span><span>›</span></div><div class="jp-item"><span>✎ 직접 가격 기록</span><span>›</span></div><div class="jp-mini">인식 결과는 장바구니에 담기 전 사용자가 확인·수정합니다.</div></div>
+      </div>
+      <div class="jp-market"><h3>시장 방문 도구</h3><div class="jp-tabs"><button class="jp-tab active" type="button" data-jp-mode="photo">📷 재료 사진</button><button class="jp-tab" type="button" data-jp-mode="barcode">▣ 바코드</button><button class="jp-tab" type="button" data-jp-mode="manual">✎ 직접 기록</button></div><div class="jp-result" id="jp-result">사진을 찍으면 “애호박 92%”처럼 후보를 보여주고, 사용자가 확인한 뒤 장바구니에 담습니다.</div></div>
+    </section>
+  </div>
+</div>
+<script>
+  (()=>{const root=document.getElementById('jp-screen-design');if(!root)return;const result=root.querySelector('#jp-result');const copy={photo:'사진을 찍으면 “애호박 92%”처럼 후보를 보여주고, 사용자가 확인한 뒤 장바구니에 담습니다.',barcode:'바코드를 읽어 상품명·중량을 확인한 뒤 가격을 입력하고, kg당 가격으로 환산합니다.',manual:'재료명·수량·가격을 직접 입력하면 KAMIS 평균가격과 비교해 장바구니에 저장합니다.'};root.querySelectorAll('[data-jp-mode]').forEach(b=>b.addEventListener('click',()=>{root.querySelectorAll('.jp-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');result.textContent=copy[b.dataset.jpMode]}));})();
+</script>
