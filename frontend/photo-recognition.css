@@ -1,0 +1,7 @@
+.photo-controls{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.photo-controls .field-label{grid-column:1/-1;margin:0}
+.photo-controls input{width:100%;min-height:48px;border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#fbfcfa;color:var(--ink)}
+.photo-controls input:focus{border-color:var(--red);box-shadow:0 0 0 4px #c6504016;outline:none}
+.photo-controls button{min-height:48px}
+.candidate small{display:block;color:var(--muted);font-size:11px;font-weight:400;margin-top:2px}
+@media(max-width:760px){.photo-controls{grid-template-columns:1fr}}

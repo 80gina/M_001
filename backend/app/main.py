@@ -18,7 +18,7 @@ from fastapi.responses import RedirectResponse
 
 from .config import settings
 from .db import get_backend, init_db
-from .routers import chat, conversations, data, market, recommend
+from .routers import chat, conversations, data, market, recommend, vision
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("seasonal-ai")
@@ -106,6 +106,7 @@ app.include_router(conversations.router)
 app.include_router(chat.router)
 app.include_router(recommend.router)
 app.include_router(market.router)
+app.include_router(vision.router)
 
 
 @app.get("/", include_in_schema=False)

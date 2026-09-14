@@ -1,23 +1,70 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>제철밥상 · 따뜻한 장보기</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="제철 식재료 가격 근거를 바탕으로 장보기와 밥상 계획을 돕는 AI Agent 서비스">
+  <title>제철밥상 플래너 · AI 장보기 비서</title>
   <link rel="stylesheet" href="simple.css">
+  <link rel="stylesheet" href="photo-recognition.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='88'%3E🥘%3C/text%3E%3C/svg%3E">
 </head>
 <body>
-<header class="appbar"><div><span class="mark">🥘</span><strong>제철밥상</strong><small>따뜻한 장보기와 밥상 계획</small></div><span id="serverState" class="pill">오프라인 체험</span></header>
-<main>
-  <section id="home" class="view active"><div class="welcome"><p class="eyebrow">오늘의 따뜻한 한 끼</p><h1>냉장고와 장바구니를<br>한 상에 차려드려요</h1><p>사진이나 바코드로 재료를 담고, 우리 가족에게 맞는 메뉴를 추천받아 보세요.</p><button class="primary" data-go="market">시장 재료 담기 <span>→</span></button></div><div class="today card"><div><span class="season-dot">●</span><b>가을 제철 한 끼</b><p>배추된장국 · 제철 채소 비빔밥</p></div><span class="emoji">🥬</span></div><div class="section-title"><h2>빠른 시작</h2><button data-go="plan">전체보기</button></div><div class="quick-grid"><button class="card quick" data-go="plan"><span>🍲</span><b>오늘 뭐 먹지?</b><small>조건을 고르면 추천해요</small></button><button class="card quick" data-go="market"><span>📷</span><b>시장 다녀왔어요</b><small>사진·바코드로 담기</small></button></div></section>
-  <section id="plan" class="view"><div class="page-head"><p class="eyebrow">우리 집 맞춤 추천</p><h1>오늘은 어떤 밥상이<br>좋으세요?</h1></div><div class="form-card card"><label>식사 인원 <input id="people" type="number" min="1" value="2"> 명</label><label>조리 시간<select id="time"><option value="quick">30분 이내</option><option value="normal">여유 있게</option></select></label><label>원하는 느낌<select id="mood"><option>따뜻한 국물</option><option>가벼운 한 끼</option><option>아이와 함께</option></select></label><button id="recommendBtn" class="primary">밥상 추천받기</button></div><div id="recommendResult"></div></section>
-  <section id="market" class="view"><div class="page-head"><p class="eyebrow">시장 방문 모드</p><h1>재료를 발견하면<br>바로 담아두세요</h1></div><div class="seg"><button class="selected" data-market="photo">📷 사진</button><button data-market="barcode">▦ 바코드</button><button data-market="manual">✎ 직접입력</button></div><div id="marketPhoto" class="market-panel card"><label class="upload"><input id="photoInput" type="file" accept="image/*" capture="environment"><span>📸</span><b>재료 표지나 진열대를 찍어주세요</b><small>사진을 확인한 뒤 후보를 선택합니다</small></label><img id="photoPreview" class="preview" hidden><div id="photoGuess" class="hint">채소·과일 사진은 1차 후보 인식을 지원하고, 최종 담기는 사용자가 확인합니다.</div></div><div id="marketBarcode" class="market-panel card hidden"><div class="barcode-box">▦<small>카메라 스캔은 지원 브라우저에서 자동 인식됩니다</small></div><button id="scanBtn" class="secondary">카메라로 바코드 읽기</button><input id="barcodeInput" placeholder="바코드 숫자 직접 입력"><p id="barcodeResult" class="hint"></p></div><div id="marketManual" class="market-panel card hidden"><select id="manualItem"><option>배추 1포기</option><option>무 1개</option><option>양파 1kg</option><option>애호박 1개</option><option>시금치 1단</option><option>사과 1봉</option></select><input id="manualPrice" type="number" placeholder="가격(원)"></div><div class="receipt card"><b>영수증도 남겨둘까요?</b><small>사진 보관과 합계 메모를 먼저 제공하고, OCR은 2차 고도화 항목입니다.</small><input id="receiptInput" type="file" accept="image/*"><input id="receiptTotal" type="number" placeholder="영수증 합계(선택)"></div><button id="addMarketBtn" class="primary full">확인하고 장바구니 담기</button><p id="marketMessage" class="message"></p></section>
-  <section id="cart" class="view"><div class="page-head"><p class="eyebrow">우리 집 장바구니</p><h1>따뜻한 밥상을 위한<br>준비물</h1></div><div id="cartItems"></div><div class="total card"><span>예상 합계</span><strong id="cartTotal">0원</strong><button id="exportCart" class="secondary">목록 저장</button></div></section>
-  <section id="instructor" class="view"><div class="page-head"><p class="eyebrow">요리교실 강사 모드</p><h1>수업 장보기와<br>인원별 비용</h1></div><div class="form-card card"><label>수업 인원 <input id="classPeople" type="number" min="1" value="12"> 명</label><p>현재 장바구니 기준 1인 예상 비용</p><strong id="perPerson">0원</strong><button id="copyClass" class="primary">수업 장보기 목록 만들기</button></div><div id="classMessage" class="message"></div></section>
-</main>
-<footer class="ethics-notice">
-  <strong>AI 활용 안내</strong>
-  <span>추천과 가격 설명에는 생성형 AI가 사용될 수 있으며, 최종 구매 결정은 사용자가 확인합니다. 사진은 현재 기기에서 미리보기와 후보 확인에 사용되며 자동 저장하지 않습니다.</span>
-</footer>
-<nav class="bottom-nav"><button data-go="home">⌂<span>홈</span></button><button data-go="plan">🍲<span>밥상추천</span></button><button data-go="market">📷<span>시장담기</span></button><button data-go="cart">🧺<span>장바구니</span><i id="cartBadge">0</i></button><button data-go="instructor">♧<span>강사모드</span></button></nav>
-<script src="config.js"></script><script src="simple.js"></script>
-</body></html>
+  <header class="appbar">
+    <a class="brand" href="#home" data-go="home" aria-label="제철밥상 홈">
+      <span class="mark">🥘</span>
+      <span><strong>제철밥상</strong><small>AI 장보기 비서</small></span>
+    </a>
+    <div class="app-status"><span class="status-dot"></span><span id="serverState">로컬 체험 모드</span></div>
+  </header>
+
+  <main>
+    <section id="home" class="view active" aria-labelledby="homeTitle">
+      <div class="home-hero">
+        <div>
+          <p class="eyebrow">오늘의 장보기 판단</p>
+          <h1 id="homeTitle">뭘 살지 고민될 때,<br><em>근거 있는 밥상</em>을 물어보세요.</h1>
+          <p class="hero-copy">내가 저장한 가격 흐름과 제철 지식을 찾아보고, 지금 사도 좋은 재료와 대체 재료까지 한 번에 정리합니다.</p>
+        </div>
+        <div class="hero-note"><span class="note-kicker">오늘의 데이터</span><strong>최근 7일 · 평년 비교</strong><span>채소 · 과일 · 육류 · 수산물</span></div>
+      </div>
+
+      <div class="metric-row" aria-label="가격 요약">
+        <div class="metric-card"><span>최근 장바구니</span><strong id="metricTotal">0원</strong><small>담은 재료 기준</small></div>
+        <div class="metric-card"><span>가격 근거</span><strong>2년 시계열</strong><small>전주·평년 두 축</small></div>
+        <div class="metric-card"><span>기억된 대화</span><strong id="metricMemory">0개</strong><small>이 기기에 저장</small></div>
+      </div>
+
+      <div class="assistant-layout">
+        <article class="card assistant-card">
+          <div class="card-heading"><div><span class="section-label">AI AGENT</span><h2>무엇을 알고 싶으세요?</h2></div><span class="model-badge">생성형 AI 연결형</span></div>
+          <form id="chatForm" class="chat-form"><label class="sr-only" for="chatInput">AI에게 질문하기</label><input id="chatInput" type="text" maxlength="300" autocomplete="off" placeholder="예: 수산물 중 지금 사기 좋은 것은?" required><button id="sendBtn" class="primary" type="submit">물어보기 <span>↗</span></button></form>
+          <div class="quick-asks" aria-label="추천 질문"><button type="button" data-ask="김치찌개 재료값이 어때?">김치찌개 재료값</button><button type="button" data-ask="수산물 중 지금 사기 좋은 것은?">수산물 추천</button><button type="button" data-ask="돼지고기 대신 쓸 재료가 있을까?">대체 재료</button><button type="button" data-ask="오늘 가족 4인 밥상을 짜줘">4인 밥상</button></div>
+          <div id="messages" class="messages" aria-live="polite"></div>
+        </article>
+
+        <aside class="card agent-card" aria-label="AI Agent 처리 과정">
+          <div class="card-heading compact"><div><span class="section-label">TRACE</span><h2>답변을 만든 과정</h2></div><span class="trace-live">● LIVE</span></div>
+          <ol id="agentSteps" class="agent-steps"><li><span>01</span><div><b>의도 파악</b><small>질문에서 품목·목적을 찾습니다</small></div></li><li><span>02</span><div><b>가격 자료 검색</b><small>저장 시계열과 품목 지식을 조회합니다</small></div></li><li><span>03</span><div><b>두 축 비교</b><small>최근 7일과 평년 수준을 비교합니다</small></div></li><li><span>04</span><div><b>답변·기억 저장</b><small>근거와 함께 답하고 다음 질문에 활용합니다</small></div></li></ol>
+          <div class="agent-foot"><span>검색 증강 · Long-term Memory</span><button id="clearMemoryBtn" class="text-button" type="button">기억 지우기</button></div>
+        </aside>
+      </div>
+
+      <div class="evidence-card card"><div class="card-heading compact"><div><span class="section-label">RAG EVIDENCE</span><h2>이번 답변의 가격 근거</h2></div><span id="evidenceStatus" class="evidence-status">대기 중</span></div><div id="evidenceList" class="evidence-list"><div class="empty-inline">질문을 보내면 검색된 가격 근거가 여기에 표시됩니다.</div></div></div>
+      <div class="home-actions"><button class="action-card" type="button" data-go="plan"><span>🍲</span><div><b>조건으로 밥상 고르기</b><small>인원·시간·분위기에 맞춰 추천</small></div><i>→</i></button><button class="action-card" type="button" data-go="market"><span>📷</span><div><b>시장 재료 담기</b><small>사진·바코드·직접 입력</small></div><i>→</i></button></div>
+    </section>
+
+    <section id="plan" class="view" aria-labelledby="planTitle"><div class="page-head"><p class="eyebrow">우리 집 맞춤 추천</p><h1 id="planTitle">오늘은 어떤 밥상이<br><em>좋으세요?</em></h1><p>조건을 고르면 가격과 조리 부담을 함께 살펴 메뉴를 제안합니다.</p></div><div class="split-layout"><div class="form-card card"><label>식사 인원 <span><input id="people" type="number" min="1" max="99" value="2"> 명</span></label><label>조리 시간 <select id="time"><option value="quick">30분 이내</option><option value="normal">여유 있게</option></select></label><label>원하는 느낌 <select id="mood"><option>따뜻한 국물</option><option>가벼운 한 끼</option><option>아이와 함께</option><option>든든한 단백질</option></select></label><button id="recommendBtn" class="primary full" type="button">밥상 추천받기 <span>↗</span></button></div><div class="info-panel"><span class="section-label">추천 기준</span><h2>재료값만 보지 않아요.</h2><p>제철감, 조리 시간, 가족 수를 함께 반영하고 비싼 재료에는 바꿔 쓸 수 있는 선택지를 붙입니다.</p><div class="tag-row"><span>제철감</span><span>예상비용</span><span>대체재료</span></div></div></div><div id="recommendResult" class="recommend-grid"></div></section>
+
+    <section id="market" class="view" aria-labelledby="marketTitle"><div class="page-head"><p class="eyebrow">시장 방문 모드</p><h1 id="marketTitle">재료를 발견하면<br><em>바로 담아두세요.</em></h1><p>인식 결과를 확인한 뒤 장바구니에 저장합니다. 구매 결정은 항상 사용자가 합니다.</p></div><div class="seg" role="tablist" aria-label="재료 입력 방식"><button class="selected" type="button" data-market="photo" role="tab" aria-selected="true">📷 사진 후보</button><button type="button" data-market="barcode" role="tab" aria-selected="false">▦ 바코드</button><button type="button" data-market="manual" role="tab" aria-selected="false">✎ 직접 입력</button></div><div id="marketPhoto" class="market-panel card" role="tabpanel"><label class="upload" for="photoInput"><input id="photoInput" type="file" accept="image/*" capture="environment"><span>📸</span><b>재료 사진을 선택하거나 찍어주세요</b><small>채소·과일·육류·수산물·곡류·포장식품까지 AI 후보를 찾습니다</small></label><img id="photoPreview" class="preview" alt="선택한 재료 사진" hidden><div id="photoGuess" class="hint">사진을 올리면 AI가 식재료 후보를 찾아드립니다.</div><div id="photoControls" class="photo-controls" hidden><label class="field-label" for="photoPrice">매장에서 본 가격(원)</label><input id="photoPrice" type="number" min="0" placeholder="후보를 확인한 뒤 가격을 입력하세요"><button id="photoAnalyze" class="secondary" type="button">다시 사진 분석하기</button></div></div><div id="marketBarcode" class="market-panel card hidden" role="tabpanel"><div class="barcode-box"><span>▦</span><small>지원 브라우저에서는 카메라 스캔을 연결할 수 있습니다</small></div><button id="scanBtn" class="secondary" type="button">카메라로 바코드 읽기</button><label class="field-label" for="barcodeInput">바코드 숫자</label><input id="barcodeInput" placeholder="예: 8800000000003" inputmode="numeric"><p id="barcodeResult" class="hint" aria-live="polite"></p></div><div id="marketManual" class="market-panel card hidden" role="tabpanel"><label class="field-label" for="manualItem">재료</label><select id="manualItem"></select><label class="field-label" for="manualPrice">가격(원)</label><input id="manualPrice" type="number" min="0" placeholder="가격을 입력하세요"></div><div class="receipt card"><div><b>영수증도 남겨둘까요?</b><small>합계만 기록하고 사진 자체는 저장하지 않습니다.</small></div><input id="receiptInput" type="file" accept="image/*"><input id="receiptTotal" type="number" min="0" placeholder="영수증 합계(선택)"></div><button id="addMarketBtn" class="primary full" type="button">확인하고 장바구니 담기 <span>↗</span></button><p id="marketMessage" class="message" aria-live="polite"></p></section>
+
+    <section id="cart" class="view" aria-labelledby="cartTitle"><div class="page-head"><p class="eyebrow">우리 집 장바구니</p><h1 id="cartTitle">따뜻한 밥상을 위한<br><em>준비물</em></h1><p>담은 재료와 예상 합계를 한 곳에서 확인합니다.</p></div><div id="cartItems" class="cart-list"></div><div class="total card"><div><span>예상 합계</span><strong id="cartTotal">0원</strong><small id="cartSourceNote">사진·바코드·직접 입력 기록이 합쳐집니다.</small></div><button id="exportCart" class="secondary" type="button">목록 복사</button></div><div id="receiptSaved" class="saved-note" hidden></div></section>
+
+    <section id="instructor" class="view" aria-labelledby="instructorTitle"><div class="page-head"><p class="eyebrow">요리교실 강사 모드</p><h1 id="instructorTitle">수업 장보기와<br><em>인원별 비용</em></h1><p>현재 장바구니를 수업 단위로 바꾸고 1인 예상 비용을 계산합니다.</p></div><div class="instructor-grid"><div class="form-card card"><label>수업 인원 <span><input id="classPeople" type="number" min="1" max="999" value="12"> 명</span></label><div class="cost-result"><span>1인 예상 비용</span><strong id="perPerson">0원</strong><small>장바구니 합계 ÷ 수업 인원</small></div><button id="copyClass" class="primary full" type="button">수업 장보기 목록 만들기</button></div><div class="class-note"><span class="section-label">CLASS MODE</span><h2>가정용 장바구니를<br>수업 준비표로 바꿔요.</h2><p>12명, 20명처럼 인원을 바꾸면 재료비가 즉시 다시 계산됩니다. 필요한 재료는 장바구니에서 직접 조정할 수 있습니다.</p><div id="classMessage" class="message"></div></div></div></section>
+  </main>
+
+  <footer class="ethics-notice"><strong>AI 활용 및 개인정보 안내</strong><span>추천·가격 설명에는 생성형 AI가 사용될 수 있습니다. 답변의 수치 근거를 확인하고 최종 구매를 결정하세요. 사진은 현재 기기에서 후보 확인에만 사용하며 자동 저장하지 않습니다. 대화·장바구니 기억은 이 기기에 저장되고 ‘기억 지우기’로 삭제할 수 있습니다.</span></footer>
+  <nav class="bottom-nav" aria-label="주요 메뉴"><button type="button" data-go="home" class="active">⌂<span>AI비서</span></button><button type="button" data-go="plan">🍲<span>밥상추천</span></button><button type="button" data-go="market">📷<span>시장담기</span></button><button type="button" data-go="cart">🧺<span>장바구니</span><i id="cartBadge">0</i></button><button type="button" data-go="instructor">♧<span>강사모드</span></button></nav>
+  <script src="config.js"></script><script src="simple.js"></script>
+</body>
+</html>

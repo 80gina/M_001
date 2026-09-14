@@ -16,8 +16,12 @@ services:
         value: "false"
       - key: OPENAI_MODEL
         value: gpt-4o-mini
+      - key: VISION_MODEL
+        value: gpt-4o-mini
       - key: OPENAI_MAX_TOKENS
         value: "600"
+      - key: VISION_MAX_TOKENS
+        value: "700"
       # 아래 두 개는 Render 대시보드에서 직접 입력 (값을 저장소에 두지 않는다)
       - key: OPENAI_API_KEY
         sync: false

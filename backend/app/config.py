@@ -19,8 +19,10 @@ class Settings:
     # --- OpenAI ---
     OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
     OPENAI_MODEL: str = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+    VISION_MODEL: str = os.getenv("VISION_MODEL", "gpt-4o-mini")
     # 과금 방지: 응답 토큰 상한을 반드시 둔다
     OPENAI_MAX_TOKENS: int = int(os.getenv("OPENAI_MAX_TOKENS", "600"))
+    VISION_MAX_TOKENS: int = int(os.getenv("VISION_MAX_TOKENS", "700"))
 
     # KAMIS — 서버에서만 호출하며 프론트엔드에 키를 노출하지 않는다.
     KAMIS_CERT_KEY: str = os.getenv("KAMIS_CERT_KEY", "")
