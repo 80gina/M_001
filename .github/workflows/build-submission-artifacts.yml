@@ -1,0 +1,56 @@
+name: Build final submission artifacts
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/build_submission_artifacts.py"
+      - "docs/*.md"
+      - ".github/workflows/build-submission-artifacts.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Korean font and libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-nanum
+          python -m pip install --upgrade pip
+          pip install reportlab python-pptx
+
+      - name: Generate PDF and PowerPoint
+        run: python scripts/build_submission_artifacts.py
+
+      - name: Commit generated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "docs/제철밥상_플래너_2.0_최종제출보고서.pdf"
+          git add "presentation/제철밥상_플래너_2.0_최종발표자료.pptx"
+          if git diff --cached --quiet; then
+            echo "No generated changes"
+          else
+            git commit -m "docs: generate final PDF and presentation"
+            git push
+          fi
+
+      - name: Upload downloadable package
+        uses: actions/upload-artifact@v4
+        with:
+          name: jecheolbapsang-final-submission
+          path: |
+            docs/제철밥상_플래너_2.0_최종제출보고서.pdf
+            presentation/제철밥상_플래너_2.0_최종발표자료.pptx
